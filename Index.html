@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ja" class="h-full">
+<!--
+=============================================================
+ 学習参考書 HTMLファイル【テンプレート版】
+ 構成: HTML + CSS + JavaScript (1ファイル完結)
+ CSS / JavaScript は元ファイルからそのまま引き継ぎ。
+ 本文(<main>内)のみ「どこに何を入れるか」がわかる
+ テンプレート形式に置き換えています。
+
+ 【このテンプレートの使い方】
+ 下記3つの機能ブロックに ★TEMPLATE★ コメントが付いています。
+   1. 説明文ブロック  … id="explain" 内
+   2. 単語カードブロック … id="vocab" 内
+   3. 図解ブロック    … id="figures" 内
+ 各ブロックをコピー&ペーストして増やし、
+ コメント内の [ここに◯◯を入れる] を実際の内容に置き換えてください。
+ 行番号(.line-no)・通し番号は setLineNumbers() が自動採番するので
+ 手動入力は不要です(空のままでOK)。
+=============================================================
+-->
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>学習参考書</title>
+
+ <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+ <!-- ============================================================
+      カスタムCSS(元ファイルからそのまま引き継ぎ / 変更なし)
+ ============================================================ -->
+ <style>
+   body {
+     background-image: radial-gradient(circle at 10% -20%, rgba(56, 189, 248, 0.09), transparent 35%);
+     font-family: Serif;
+     Color: #777777;
+   }
+  
+   header{
+    font-family: Serif;
+    }
+
+  em{
+  color: #AA00FF;
+  font-bold;
+  }
+  
+  .theme-2 {
+Color: #00F0AA;
+}
+
+  strong {
+  Color: #00FF00;
+  }
+  
+   .line-item {
+     display: grid;
+     grid-template-columns: 3rem 1fr;
+     gap: 0.75rem;
+     align-items: start;
+     padding: 0.35rem 0;
+     font-family: Serif;
+   }
+
+   .line-no {
+     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+     color: #64748b;
+     text-align: right;
+     user-select: none;
+     padding-top: 0.1rem;
+   }
+
+   .dark .line-no {
+     color: #94a3b8;
+   }
+
+   .memory-visible {
+     color: #1d4ed8;
+     font-weight: 600;
+   }
+
+   .dark .memory-visible {
+     color: #60a5fa;
+   }
+
+   .search-hit {
+     outline: 2px solid #0ea5e9;
+     border-radius: 0.25rem;
+     background-color: rgba(14, 165, 233, 0.08);
+   }
+
+   .blank-slot {
+     display: inline-block;
+     min-width: 5.5rem;
+     line-height: 1.2;
+     border-bottom: 2px solid #dc2626;
+     color: transparent;
+     user-select: none;
+     vertical-align: baseline;
+     text-align: center;
+   }
+
+   .blank-slot.revealed {
+     color: #FF0000;
+     border-bottom-color: transparent;
+     user-select: text;
+   }
+
+   .memory-visible.blank-slot {
+     color: #1d4ed8;
+     border-bottom-color: transparent;
+   }
+
+   .dark .memory-visible.blank-slot {
+     color: #60a5fa;
+   }
+
+   .tap-word {
+     background: transparent;
+     border: none;
+     padding: 0 0.15rem;
+     cursor: pointer;
+   }
+
+   .section-head {
+     border-left: 4px solid #0ea5e9;
+     padding-left: 0.6rem;
+   }
+
+   .vocab-card {
+     border: 1px solid #93c5fd;
+     border-left: 6px solid #0284c7;
+     background: linear-gradient(180deg, rgba(239, 246, 255, 0.95), rgba(224, 242, 254, 0.7));
+     box-shadow: 0 6px 16px rgba(2, 132, 199, 0.12);
+     transition: transform 0.18s ease, box-shadow 0.18s ease;
+   }
+
+   .vocab-card:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 10px 20px rgba(2, 132, 199, 0.18);
+   }
+
+   .dark .vocab-card {
+     border-color: #0ea5e9;
+     border-left-color: #38bdf8;
+     background: linear-gradient(180deg, rgba(12, 74, 110, 0.45), rgba(15, 23, 42, 0.65));
+     box-shadow: 0 6px 16px rgba(14, 165, 233, 0.16);
+   }
+
+   .qa-box {
+     border: 1px solid #94a3b8;
+     border-left: 5px solid #475569;
+     border-radius: 0.5rem;
+     padding: 0.5rem 0.65rem;
+     margin-top: 0.35rem;
+   }
+
+   .answer-box {
+     background: #f8fafc;
+   }
+
+   .explain-box {
+     background: #f1f5f9;
+   }
+
+   .dark .qa-box {
+     border-color: #64748b;
+     border-left-color: #94a3b8;
+   }
+
+   .dark .answer-box {
+     background: rgba(30, 41, 59, 0.75);
+   }
+
+   .dark .explain-box {
+     background: rgba(51, 65, 85, 0.7);
+   }
+
+   @media print {
+     .no-print {
+       display: none !important;
+     }
+   }
+ </style>
+</head>
+
+<body class="h-full bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100">
+ <div class="min-h-full flex flex-col">
+
+   <!-- ============================================================
+     ヘッダー(元ファイルと同じ / 変更なし)
+   ============================================================ -->
+   <header class="no-print sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur dark:border-slate-700 dark:bg-slate-900/95">
+     <div class="mx-auto max-w-6xl px-4 py-3">
+
+       <div class="flex flex-wrap items-center gap-2">
+         <button id="tocToggle" class="rounded border border-slate-300 px-3 py-1.5 text-sm hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800">☰ 目次</button>
+         <h1 class="text-lg font-bold-Serif">学習参考書サンプル</h1>
+
+         <div class="ml-auto flex flex-wrap items-center gap-2">
+           <label for="searchInput" class="sr-only">検索</label>
+           <input id="searchInput" type="search" placeholder="検索" class="w-40 rounded border border-slate-300 px-3 py-1.5 text-sm dark:border-slate-600 dark:bg-slate-800" />
+           <button id="searchBtn" class="rounded bg-sky-600 px-3 py-1.5 text-sm text-white hover:bg-sky-700">検索</button>
+           <button id="modeToggle" class="rounded border border-slate-300 px-3 py-1.5 text-sm hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800">確認モード</button>
+           <button id="darkToggle" class="rounded border border-slate-300 px-3 py-1.5 text-sm hover:bg-slate-100 dark:border-slate-600 dark:hover:bg-slate-800"><em>ダークモード</em></button>
+         </div>
+       </div>
+
+       <!--
+         ★TEMPLATE★ 目次(TOC)
+         大テーマ・小テーマを増やすたびに、ここにも <li> を追加してください。
+         href="#〜" は本文側の該当セクション id と一致させること。
+         [ここに大テーマ名を入れる] / [ここに小テーマ名を入れる]
+       -->
+       <nav id="tocPanel" class="mt-3 hidden rounded border border-slate-200 p-3 dark:border-slate-700">
+         <ul class="space-y-2 text-sm">
+           <!-- 大テーマ1 -->
+           <li>
+             <a class="toc-link text-sky-700 hover:underline dark:text-sky-400" href="#theme1">第1章　現代の国際政治</a>
+             <ul class="mt-1 ml-4 space-y-1">
+               <li class="theme-2"><a class="toc-link  hover:underline dark:text-slate-200"href="#theme1-1">1−1　国際政治の仕組み</a></li>
+                <ul class="mt-1 ml-4 space-y-2">
+                          <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme1-1-1">1-1-1　国際政治の特質</a></li>
+                          <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme1-1-2">1-1-2　国際社会と国際法</a></li >
+                           <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme1-1-3">1-1-3　国際連合の役割と課題</a></li>
+                </ul>  
+               <li class="theme-2"><a class="toc-link  hover:underline dark:text-slate-200" href="#theme1-2">1-2　複雑化する国際政治と日本</a></li>
+                <ul class="mt-1 ml-4 space-y-2">
+                          <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme1-2-1">1-2-1　戦後国際関係の展開と日本</a></li>
+                          <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme1-2-2">1-2-2　冷戦後の国際関係と日本</a></li>
+                          <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme1-2-3">1-2-3　地域主義の動き</a></li>
+                          <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme1-2-4">1-2-4　軍縮の動向と課題</a></li>
+                          <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme1-2-5">1-2-5　紛争・難民・テロリズム</a></li>
+                           <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme1-2-6">1-2-6　国際社会における日本の役割</a></li>
+                      </ul>
+             <a class="toc-link text-sky-700 hover:underline dark:text-sky-400" href="#theme2">第2章　現代の国際経済</a>
+             <ul class="mt-1 ml-4 space-y-1">
+               <li class="theme-2"><a class="toc-link  hover:underline dark:text-slate-200" href="#theme2-1">2−1　国民経済と国際経済</a></li>
+                  <ul class="mt-1 ml-4 space-y-2">
+                          <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme2-1-1">2-1-1　貿易と国際収支</a></li>
+                          <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme2-1-2">2-1-2　戦後国際経済体制の展開</a></li>
+                          <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme2-1-3">2-1-3　発展途上国の経済</a></li>
+                      </ul>
+               <li class="theme-2"><a class="toc-link hover:underline dark:text-slate-200" href="#theme1-2">2−2　世界経済の現状と課題</a></li>
+                  <ul class="mt-1 ml-4 space-y-2">
+                          <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme2-2-1">2-2-1　グローバル化する世界経済</a></li>
+                          <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme2-2-2">2-2-2　地球環境問題</a></li>
+                          <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme2-2-3">2-2-3　資源・エネルギー問題</a></li>
+                          <li><a class="toc-link text-slate-600 hover:underline dark:text-slate-200" href="#theme2-2-4">2-2-4　人口・貧困・感染症</a></li>
+                      </ul>
+             </ul>
+           </li>
+         </ul>
+       </nav>
+     </div>
+   </header>
+
+   <!-- ============================================================
+     本文メイン
+   ============================================================ -->
+   <main id="content" class="mx-auto w-full max-w-6xl flex-1 px-4 py-6 space-y-8">
+
+     <!-- ============================================================
+       大テーマ1 (コピーして大テーマ2, 3... を増やせます)
+       id="theme1" は目次の href="#theme1" と一致させること
+     ============================================================ -->
+     <section id="theme1" class="space-y-4">
+       <h2 class="text-2xl font-bold">第1章　現在の国際政治</h2>
+       <p class="text-sm text-slate-600 dark:text-slate-300">教科書：P173〜</p>
+       <!-- ============================================================
+         ★TEMPLATE★ ① 説明文ブロック
+         ------------------------------------------------------------
+         用途: 文章中に空欄を作り、タップで単語を表示させる形式。
+         コピー元: 1つの .line-item = 1行(1文)。行を増やしたい場合は
+         <div class="line-item searchable">...</div> ごとコピーする。
+
+         [入力箇所の説明]
+         - <p> ... </p> の中に文章を書く
+         - 空欄にしたい単語の位置に以下のボタンを挿入:
+             <button class="tap-word conceal blank-slot text-sm"
+                     data-word="[ここに正解の単語を入れる]"
+                     aria-label="用語を表示">　</button>
+         - data-word="" の中身が、タップ/暗記モードで表示される単語になる
+         - line-no(行番号)は自動採番されるので空のままでOK
+       ============================================================ -->
+       <section id="theme1−1" class="space-y-1">
+         <h3 class="section-head text-xl font-semibold">1−1　国際政治の仕組み</h3>
+　　<section id="theme1-1-1" class="space-y-2">
+<h4 class="section-head  font-semibold">1-1-1　国際政治の特質</h4>
+　　　<div class="line-item searchable">
+           <span class="line-no"></span>
+<p>
+<em>国際社会</em>は，現在，200ほどの<button class="tap-word conceal blank-slot text-sm" data-word="主権国家" aria-label="用語を表示">　</button>により構成されている．<button class="tap-word conceal blank-slot text-sm" data-word="主権" aria-label="用語を表示">　</button>とは，ある一定の領域内における最高権力を意味し，領域や国民とともに，国家に不可欠な要素とされる．国際社会は，基本的には主権国家の間で営まれ，その最たる特徴は，<button class="tap-word conceal blank-slot text-sm" data-word="主権国家" aria-label="用語を表示">　</button>より上位に立つものが存在しない事であり，主権国家は他国の内政に干渉してはならないとされる（<button class="tap-word conceal blank-slot text-sm" data-word="内政不干渉の原則" aria-label="用語を表示">　</button>）．
+</p>
+　　　</div>
+ <div class="line-item searchable">
+           <span class="line-no"></span>
+           <p>
+           このような国際社会は，歴史的には，近世ヨーロッパで<em>三十年戦争</em>を終結させた<em>①</em> <button class="tap-word conceal blank-slot text-sm" data-word="ウェストファリア条約" aria-label="用語を表示">　</button>をきっかけに， <button class="tap-word conceal blank-slot text-sm" data-word="ローマ教皇" aria-label="用語を表示">　</button>を頂点とする宗教的な秩序が弱まるなか，次第に各国の主権の確立と平等が確認されることで形成された．<br>
+           <em>①</em>：<strong>1648年</strong>ドイツの宗教戦争にヨーロッパ諸国が干渉した三十年戦争の講和条約．現在の<em>スイス</em>や<em>オランダ</em>の独立，<em>ドイツ諸邦の主権確立</em>などが合意された．
+           </p>
+           </div>
+         
+<div class="line-item searchable">
+           <span class="line-no"></span>
+           <p>
+         主権国家は，はじめ君主が国民を支配する   
+             <button class="tap-word conceal blank-slot text-sm" data-word="絶対主義国家" aria-label="用語を表示">　</button>
+             として成立したが，市民革命を経て<button class="tap-word conceal blank-slot text-sm" data-word="国民国家" aria-label="用語を表示">　</button>としていった．そこでは，国家と国民との一体性が自覚され，自国を優先する<button class="tap-word conceal blank-slot text-sm" data-word="ナショナリズム" aria-label="用語を表示">　</button>が優勢になった．第一次世界大戦後には<em>①</em><button class="tap-word conceal blank-slot text-sm" data-word="民族自決の原則" aria-label="用語を表示">　</button>が広く認められ，第二次世界大戦後にアジアや<em>②</em>アフリカでも植民地が相次いで独立し，主権国家として国際社会の構成員となった．<br>
+             <em>①</em>：各民族はその政治的運命を自ら決める事ができるという原則．民族統一・民族独立運動の根拠として主張される．<button class="tap-word conceal blank-slot text-sm" data-word="ウィルソン米大統領" aria-label="用語を表示">　</button>が「<button class="tap-word conceal blank-slot text-sm" data-word="十四か条の平和原則" aria-label="用語を表示">　</button>」で唱導した．<br>
+             <em>②</em>多くのアフリカ諸国が独立した<strong>1960年</strong>は，「<button class="tap-word conceal blank-slot text-sm" data-word="アフリカの年" aria-label="用語を表示">　</button>」ともよばれる．同年の国連総会では，アジア・アフリカの共同提案により， <button class="tap-word conceal blank-slot text-sm" data-word="植民地独立付与宣言" aria-label="用語を表示">　</button>が採択された．
+           </p>
+         </div>
+         
+      国家の領域<br>
+             <figure class="line-item searchable">
+           <span class="line-no"></span>
+           <div>
+             <img class="zoomable w-full max-w-xl cursor-zoom-in rounded border border-slate-300 dark:border-slate-600"
+                  alt="国家の領域（図1）"
+                  src="https://drive.google.com/drive/folders/1k4Jmj5cqrz7axVevqK_ZZkVlFX4sXc_-?usp=share_link">
+             <figcaption class="mt-1 text-sm text-slate-600 dark:text-slate-300">国家の領域の図</figcaption>
+           </div>
+         </figure>
+         
+   <div class="line-item searchable">
+           <span class="line-no"></span>
+           <p>国家の領域<br>
+             <button class="tap-word conceal blank-slot text-sm" data-word="" aria-label="用語を表示">　</button>
+             
+           </p>
+         </div>  
+         
+         <div class="line-item searchable">
+           <span class="line-no"></span>
+           <p>国際社会には，その全体を統治する世界政府のようなものは存在しない．
+            
+             <button class="tap-word conceal blank-slot text-sm" data-word="" aria-label="用語を表示">　</button>
+             
+           </p>
+         </div>
+         
+       </section>
+         <!-- ★TEMPLATE★ 説明文1行分(コピーして増やす) -->
+         <div class="line-item searchable">
+           <span class="line-no"></span>
+           <p>
+            
+             <button class="tap-word conceal blank-slot text-sm" data-word="" aria-label="用語を表示">　</button>
+             
+           </p>
+         </div>
+
+         <!-- 例: 空欄を文中に複数入れたい場合は tap-word ボタンを複数配置してもよい -->
+         <!--
+         <div class="line-item searchable">
+           <span class="line-no"></span>
+           <p>
+             [文章前半]
+             <button class="tap-word conceal blank-slot text-sm" data-word="[単語A]" aria-label="用語を表示">　</button>
+             [文章中盤]
+             <button class="tap-word conceal blank-slot text-sm" data-word="[単語B]" aria-label="用語を表示">　</button>
+             [文章後半]
+           </p>
+         </div>
+         -->
+
+  <!-- ★TEMPLATE★ 単語カード1枚分(コピーして増やす) -->
+         <button class="line-item w-full text-left vocab-card searchable rounded border border-slate-300 p-2 transition hover:bg-slate-50 dark:border-slate-600 dark:hover:bg-slate-800"
+                 data-word="[ここに正解の単語を入れる]"
+                 data-sentence="[ここに問題文(____を含む形)を入れる]">
+           <span class="line-no"></span>
+           <span><strong>Q.</strong> [ここに問題文の前半を入れる] <span class="conceal blank-slot">　</span> [ここに問題文の後半を入れる(「である。」など)]</span>
+         </button>
+
+       <!-- ============================================================
+         ★TEMPLATE★ ② 単語カードブロック(クイズカード型)
+         ------------------------------------------------------------
+         用途: カード全体をタップすると空欄に単語が表示されるクイズ形式。
+         コピー元: 1つの <button class="line-item ... vocab-card">...</button>
+                   = 1枚のカード。
+
+         [入力箇所の説明]
+         - data-word="[ここに正解の単語を入れる]"  … タップで表示される答え
+         - data-sentence="[ここに問題文(____含む)を入れる]" … 拡張用(現状未表示・任意)
+         - <span><strong>Q.</strong> [ここに問題文を入れる]
+             <span class="conceal blank-slot">　</span> である。</span>
+           の [ここに問題文を入れる] 部分を書き換える
+         - 空欄部分(<span class="conceal blank-slot">)はそのまま残す
+       ============================================================ -->
+
+ <!-- ★TEMPLATE★ 図1点分(コピーして増やす) -->
+         <figure class="line-item searchable">
+           <span class="line-no"></span>
+           <div>
+             <img class="zoomable w-full max-w-xl cursor-zoom-in rounded border border-slate-300 dark:border-slate-600"
+                  alt="[ここに画像の代替テキストを入れる]"
+                  src="[ここに画像URLまたはパスを入れる]">
+             <figcaption class="mt-1 text-sm text-slate-600 dark:text-slate-300">[ここに図のキャプションを入れる(例: 図1: 〜の模式図)]</figcaption>
+           </div>
+         </figure>
+
+ <!-- ============================================================
+         ★TEMPLATE★ ③ 図解ブロック(タップで拡大)
+         ------------------------------------------------------------
+         用途: 画像をタップすると全画面モーダルで拡大表示される図解。
+         コピー元: 1つの <figure class="line-item ...">...</figure>
+                   = 図1点分。
+
+         [入力箇所の説明]
+         - <img> の src="[ここに画像URLまたはパスを入れる]"
+         - <img> の alt="[ここに画像の代替テキスト(内容説明)を入れる]"
+         - <figcaption> の中に [ここに図のキャプション(図◯: 〜)を入れる]
+         - class="zoomable" は必ず残すこと(タップ拡大機能が有効になる)
+       ============================================================ -->
+
+ <!-- ★TEMPLATE★ 問題1問分(コピーして増やす) -->
+         <article class="line-item searchable problem-block">
+           <span class="line-no"></span>
+           <div>
+             <p><strong>問題1.</strong> [ここに問題文を入れる]</p>
+             <button class="answer-toggle mt-1 rounded border border-slate-300 px-2 py-1 text-sm dark:border-slate-600">回答を表示</button>
+             <div class="answer mt-1 hidden">
+               <p class="conceal qa-box answer-box"><strong>回答:</strong> [ここに回答を入れる]</p>
+               <p class="conceal qa-box explain-box"><strong>解説:</strong> [ここに解説を入れる]</p>
+             </div>
+           </div>
+         </article>
+
+<!-- ============================================================
+       大テーマ2: 確認問題 (問題ブロックのテンプレートも参考用に残しています)
+       ------------------------------------------------------------
+       ★TEMPLATE★ 問題ブロック
+       [入力箇所の説明]
+       - <p><strong>問題◯.</strong> [ここに問題文を入れる]</p>
+       - 回答: <p class="conceal qa-box answer-box"><strong>回答:</strong> [ここに回答を入れる]</p>
+       - 解説: <p class="conceal qa-box explain-box"><strong>解説:</strong> [ここに解説を入れる]</p>
+       - .answer-toggle ボタンと .answer div(hidden付き)の構造は変更しないこと
+     ============================================================ -->
+
+       </section>
+
+       <section id="theme1−2" class="space-y-2">
+         <h3 class="section-head text-xl font-semibold">1−2　複雑化する国際政治と日本</h3>
+         <p class="text-sm text-slate-600 dark:text-slate-300">教科書：P182〜</p>
+
+       </section>
+
+     </section>
+
+     
+     <section id="theme2" class="space-y-3">
+       <h2 class="text-2xl font-bold">第2章　現代の国際経済</h2>
+
+       <section id="theme2−1" class="space-y-2">
+         <h3 class="section-head text-xl font-semibold">2−1　国民経済と国際経済</h3>
+<p class="text-sm text-slate-600 dark:text-slate-300">教科書：P206〜</p>
+
+        
+       </section>
+      <section id="theme2−2" class="space-y-2">
+         <h3 class="section-head text-xl font-semibold">2−2　世界経済の現状と課題</h3>
+<p class="text-sm text-slate-600 dark:text-slate-300">教科書：P220〜</p>
+
+        
+       </section>
+     </section>
+   </main>
+
+   <!-- ============================================================
+     フッター(元ファイルと同じ / 変更なし)
+   ============================================================ -->
+   <footer class="no-print border-t border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800/40">
+     <div class="mx-auto max-w-6xl px-4 py-4">
+       <div class="flex flex-wrap items-center gap-2">
+         <strong class="mr-2">PDF化(範囲選択)</strong>
+         <label for="lineStart" class="text-sm">開始行</label>
+         <input id="lineStart" type="number" min="1" class="w-24 rounded border border-slate-300 px-2 py-1 text-sm dark:border-slate-600 dark:bg-slate-800">
+         <label for="lineEnd" class="text-sm">終了行</label>
+         <input id="lineEnd" type="number" min="1" class="w-24 rounded border border-slate-300 px-2 py-1 text-sm dark:border-slate-600 dark:bg-slate-800">
+         <button id="exportPdf" class="rounded bg-emerald-600 px-3 py-1.5 text-sm text-white hover:bg-emerald-700">範囲を印刷(PDF保存)</button>
+         <span id="lineInfo" class="text-sm text-slate-600 dark:text-slate-300"></span>
+       </div>
+     </div>
+   </footer>
+ </div>
+
+ <!-- ============================================================
+   画像拡大モーダル(元ファイルと同じ / 変更なし)
+ ============================================================ -->
+ <div id="imageModal" class="fixed inset-0 z-40 hidden items-center justify-center bg-black/80 p-4">
+   <button id="closeModal" class="absolute right-4 top-4 rounded bg-white px-3 py-1 text-sm text-slate-900">閉じる</button>
+   <img id="modalImage" class="max-h-[90vh] max-w-[92vw]" alt="拡大画像">
+ </div>
+
+ <!-- ============================================================
+   JavaScript(元ファイルからそのまま引き継ぎ / 変更なし)
+ ============================================================ -->
+ <script>
+   const root = document.documentElement;
+
+   const tocToggle = document.getElementById('tocToggle');
+   const tocPanel = document.getElementById('tocPanel');
+
+   const modeToggle = document.getElementById('modeToggle');
+
+   const darkToggle = document.getElementById('darkToggle');
+
+   const lineInfo = document.getElementById('lineInfo');
+
+   const imageModal = document.getElementById('imageModal');
+   const modalImage = document.getElementById('modalImage');
+   const closeModal = document.getElementById('closeModal');
+
+   const searchInput = document.getElementById('searchInput');
+   const searchBtn = document.getElementById('searchBtn');
+
+   let studyMode = 'check';
+
+   function hideBlank(el) {
+     el.textContent = '　';
+     el.classList.remove('revealed');
+   }
+
+   function revealBlank(el, word) {
+     el.textContent = word;
+     el.classList.add('revealed');
+   }
+
+   function setLineNumbers() {
+     const lines = [...document.querySelectorAll('.line-item')];
+
+     lines.forEach((line, i) => {
+       line.dataset.line = String(i + 1);
+       const no = line.querySelector('.line-no');
+       if (no) no.textContent = String(i + 1).padStart(3, '0');
+     });
+
+     document.getElementById('lineStart').value = 1;
+     document.getElementById('lineEnd').value = lines.length;
+     lineInfo.textContent = `全 ${lines.length} 行`;
+   }
+
+   function updateMode() {
+     const concealTargets = document.querySelectorAll('.conceal');
+     const answers = document.querySelectorAll('.answer');
+     const answerButtons = document.querySelectorAll('.answer-toggle');
+
+     if (studyMode === 'memorize') {
+       modeToggle.textContent = '暗記モード';
+
+       concealTargets.forEach((el) => {
+         if (el.classList.contains('tap-word')) {
+           revealBlank(el, el.dataset.word);
+         }
+         if (el.closest('.vocab-card')) {
+           revealBlank(el, el.closest('.vocab-card').dataset.word);
+         }
+         el.classList.add('memory-visible');
+       });
+
+       answers.forEach((box) => box.classList.remove('hidden'));
+
+       answerButtons.forEach((btn) => {
+         btn.textContent = '解答表示中';
+       });
+
+     } else {
+       modeToggle.textContent = '確認モード';
+
+       concealTargets.forEach((el) => {
+         if (el.classList.contains('tap-word')) {
+           hideBlank(el);
+         }
+         if (el.closest('.vocab-card')) {
+           hideBlank(el);
+         }
+         el.classList.remove('memory-visible');
+       });
+
+       answers.forEach((box) => box.classList.add('hidden'));
+
+       answerButtons.forEach((btn) => {
+         btn.textContent = '回答を表示';
+       });
+     }
+   }
+
+   function openImage(src, alt) {
+     modalImage.src = src;
+     modalImage.alt = alt;
+     imageModal.classList.remove('hidden');
+     imageModal.classList.add('flex');
+   }
+
+   function closeImage() {
+     imageModal.classList.add('hidden');
+     imageModal.classList.remove('flex');
+     modalImage.src = '';
+   }
+
+   function clearSearchMarks() {
+     document.querySelectorAll('.search-hit').forEach((el) => el.classList.remove('search-hit'));
+   }
+
+   function runSearch() {
+     clearSearchMarks();
+     const keyword = searchInput.value.trim().toLowerCase();
+     if (!keyword) return;
+
+     const targets = [...document.querySelectorAll('.searchable')];
+     const hit = targets.find((el) => el.textContent.toLowerCase().includes(keyword));
+
+     if (hit) {
+       hit.classList.add('search-hit');
+       hit.scrollIntoView({ behavior: 'smooth', block: 'center' });
+     } else {
+       alert('一致する内容が見つかりませんでした。');
+     }
+   }
+
+   function exportPdfByRange() {
+     const start = Number(document.getElementById('lineStart').value);
+     const end = Number(document.getElementById('lineEnd').value);
+     const lines = [...document.querySelectorAll('.line-item')];
+     const max = lines.length;
+
+     if (!start || !end || start > end || start < 1 || end > max) {
+       alert(`有効な行番号を入力してください (1-${max})`);
+       return;
+     }
+
+     const selected = lines.filter((line) => {
+       const no = Number(line.dataset.line);
+       return no >= start && no <= end;
+     });
+
+     const printWin = window.open('', '_blank');
+     if (!printWin) {
+       alert('ポップアップがブロックされました。ブラウザ設定を確認してください。');
+       return;
+     }
+
+     const content = selected.map((line) =>
+       `<div style="display:grid;grid-template-columns:3rem 1fr;gap:.75rem;padding:.25rem 0;">${line.innerHTML}</div>`
+     ).join('');
+
+     printWin.document.write(
+       `<!DOCTYPE html>
+       <html lang="ja">
+       <head>
+         <meta charset="UTF-8">
+         <title>学習参考書PDF</title>
+         <style>
+           body{font-family:sans-serif;line-height:1.6;padding:20px;}
+           img{max-width:100%;height:auto;}
+           a{text-decoration:none;color:inherit;}
+           .memory-visible{color:#1d4ed8;font-weight:600;}
+           .hidden{display:none;}
+           .answer-toggle{display:none;}
+         </style>
+       </head>
+       <body>
+         <h1>学習参考書 (行 ${start} - ${end})</h1>
+         ${content}
+       </body>
+       </html>`
+     );
+     printWin.document.close();
+
+     printWin.focus();
+     setTimeout(() => printWin.print(), 350);
+   }
+
+   tocToggle.addEventListener('click', () => {
+     tocPanel.classList.toggle('hidden');
+   });
+
+   document.querySelectorAll('.toc-link').forEach((link) => {
+     link.addEventListener('click', () => {
+       tocPanel.classList.add('hidden');
+     });
+   });
+
+   modeToggle.addEventListener('click', () => {
+     studyMode = studyMode === 'check' ? 'memorize' : 'check';
+     updateMode();
+   });
+
+   darkToggle.addEventListener('click', () => {
+     root.classList.toggle('dark');
+   });
+
+   document.querySelectorAll('.tap-word').forEach((btn) => {
+     btn.addEventListener('click', () => {
+       if (studyMode === 'check') {
+         if (btn.classList.contains('revealed')) {
+           hideBlank(btn);
+         } else {
+           revealBlank(btn, btn.dataset.word);
+         }
+       }
+     });
+   });
+
+   document.querySelectorAll('.vocab-card').forEach((card) => {
+     card.addEventListener('click', () => {
+       if (studyMode === 'check') {
+         const target = card.querySelector('.conceal');
+         if (target.classList.contains('revealed')) {
+           hideBlank(target);
+         } else {
+           revealBlank(target, card.dataset.word);
+         }
+       }
+     });
+   });
+
+   document.querySelectorAll('.answer-toggle').forEach((btn) => {
+     btn.addEventListener('click', () => {
+       if (studyMode === 'check') {
+         const box = btn.nextElementSibling;
+         box.classList.toggle('hidden');
+         btn.textContent = box.classList.contains('hidden') ? '回答を表示' : '回答を隠す';
+       }
+     });
+   });
+
+   document.querySelectorAll('.zoomable').forEach((img) => {
+     img.addEventListener('click', () => openImage(img.src, img.alt));
+   });
+
+   imageModal.addEventListener('click', (e) => {
+     if (e.target === imageModal) closeImage();
+   });
+
+   closeModal.addEventListener('click', closeImage);
+
+   searchBtn.addEventListener('click', runSearch);
+   searchInput.addEventListener('keydown', (e) => {
+     if (e.key === 'Enter') runSearch();
+   });
+
+   document.getElementById('exportPdf').addEventListener('click', exportPdfByRange);
+
+   setLineNumbers();
+
+   updateMode();
+ </script>
+</body>
+</html>
