@@ -401,85 +401,135 @@ Color: #00F0AA;
          <div class="line-item searchable">
            <span class="line-no"></span>
            <p>
-   <table class="w-full border-collapse border border-gray-300 text-sm my-4 table-fixed">
-             <colgroup>
-               <col class="w-1/4">
-               <col class="w-3/8">
-               <col class="w-3/8">
-             </colgroup>
-             <thead>
-               <tr class="bg-gray-100">
-                 <th class="border border-gray-300 p-3 text-left text-base font-bold" colspan="3">■ 国際法と国内法の比較</th>
-               </tr>
-               <tr class="bg-gray-50 text-center font-bold">
-                 <th class="border border-gray-300 p-2">項目</th>
-                 <th class="border border-gray-300 p-2">国内法</th>
-                 <th class="border border-gray-300 p-2">国際法</th>
-               </tr>
-             </thead>
-             <tbody>
-               <tr>
-                 <td class="border border-gray-300 p-3 font-bold bg-gray-50 text-center">主な主体</td>
-                 <td class="border border-gray-300 p-3">個人や法人（国民など）</td>
-                 <td class="border border-gray-300 p-3">原則として <button class="tap-word conceal blank-slot text-sm" data-word="主権国家" aria-label="用語を表示">　</button></td>
-               </tr>
-               <tr>
-                 <td class="border border-gray-300 p-3 font-bold bg-gray-50 text-center">立法機関</td>
-                 <td class="border border-gray-300 p-3">国会（議会）など（統一的な機関がある）</td>
-                 <td class="border border-gray-300 p-3">存在しない（合意による <button class="tap-word conceal blank-slot text-sm" data-word="条約" aria-label="用語を表示">　</button> や国際慣習法）</td>
-               </tr>
-               <tr>
-                 <td class="border border-gray-300 p-3 font-bold bg-gray-50 text-center">執行・強制機関</td>
-                 <td class="border border-gray-300 p-3">警察や裁判所など（強制力をもつ組織がある）</td>
-                 <td class="border border-gray-300 p-3">存在しない（原則として国家による <button class="tap-word conceal blank-slot text-sm" data-word="自力救済" aria-label="用語を表示">　</button> ）</td>
-               </tr>
-               <tr>
-                 <td class="border border-gray-300 p-3 font-bold bg-gray-50 text-center">裁判の管轄権</td>
-                 <td class="border border-gray-300 p-3">義務的（ <button class="tap-word conceal blank-slot text-sm" data-word="強制管轄権" aria-label="用語を表示">　</button> がある）</td>
-                 <td class="border border-gray-300 p-3">原則として当事国双方の合意が必要（任意管轄）</td>
-               </tr>
-             </tbody>
-           </table>
-  </p>
-           </div>
-           <!-- 016: 裁判所の比較テーブル -->
-          <div class="line-item searchable">
-           <span class="line-no"></span>
-           <p>
-          <table class="w-full border-collapse border border-gray-300 text-sm my-4 table-fixed">
-             <colgroup>
-               <col class="w-1/4">
-               <col class="w-3/8">
-               <col class="w-3/8">
-             </colgroup>
-             <thead>
-               <tr class="bg-gray-100">
-                 <th class="border border-gray-300 p-3 text-left text-base font-bold" colspan="3">■ 常設国際司法裁判所（PCIJ）と国際司法裁判所（ICJ）の比較</th>
-               </tr>
-               <tr class="bg-gray-50 text-center font-bold">
-                 <th class="border border-gray-300 p-2">項目</th>
-                 <th class="border border-gray-300 p-2">常設国際司法裁判所（PCIJ）</th>
-                 <th class="border border-gray-300 p-2">国際司法裁判所（ICJ）</th>
-               </tr>
-             </thead>
-             <tbody>
-               <tr>
-                 <td class="border border-gray-300 p-3 font-bold bg-gray-50 text-center">設立年 / 所属</td>
-                 <td class="border border-gray-300 p-3">1921年 / <button class="tap-word conceal blank-slot text-sm" data-word="国際連盟" aria-label="用語を表示">　</button> の機関</td>
-                 <td class="border border-gray-300 p-3">1945年 / <button class="tap-word conceal blank-slot text-sm" data-word="国際連合" aria-label="用語を表示">　</button> の主要機関</td>
-               </tr>
-               <tr>
-                 <td class="border border-gray-300 p-3 font-bold bg-gray-50 text-center">所在地</td>
-                 <td class="border border-gray-300 p-3">ハーグ（オランダ）</td>
-                 <td class="border border-gray-300 p-3">ハーグ（オランダ）</td>
-               </tr>
-               <tr>
-                 <td class="border border-gray-300 p-3 font-bold bg-gray-50 text-center">訴訟の当事者</td>
-                 <td class="border border-gray-300 p-3">国家のみ</td>
-                 <td class="border border-gray-300 p-3">国家のみ</td>
-               </tr>
-             </tbody>
-           </table>
+   <table class="w-full border-collapse border border-gray-300 my-4 text-[14px] leading-relaxed table-fixed">
+    <colgroup>
+        <col class="w-[22%]">
+        <col class="w-[39%]">
+        <col class="w-[39%]">
+    </colgroup>
+    <thead>
+        <tr class="bg-gray-100">
+            <th colspan="3" class="border border-gray-300 px-3 py-2 text-left font-bold">
+                ■ 国際法と国内法の比較
+            </th>
+        </tr>
+        <tr class="bg-gray-50">
+            <th class="border border-gray-300 py-2 text-center">項目</th>
+            <th class="border border-gray-300 py-2 text-center">国内法</th>
+            <th class="border border-gray-300 py-2 text-center">国際法</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td class="border border-gray-300 bg-gray-50 px-3 py-2 text-center">主な主体</td>
+            <td class="border border-gray-300 px-3 py-2">
+                個人や法人（国民など）
+            </td>
+            <td class="border border-gray-300 px-3 py-2">
+                原則として
+                <button class="tap-word conceal blank-slot" data-word="主権国家">　</button>
+            </td>
+        </tr>
+        <tr>
+            <td class="border border-gray-300 bg-gray-50 px-3 py-2 text-center">立法機関</td>
+            <td class="border border-gray-300 px-3 py-2">
+                国会（議会）など（統一的な機関がある）
+            </td>
+            <td class="border border-gray-300 px-3 py-2">
+                存在しない（合意による
+                <button class="tap-word conceal blank-slot" data-word="条約">　</button>
+                や国際慣習法）
+            </td>
+        </tr>
+        <tr>
+            <td class="border border-gray-300 bg-gray-50 px-3 py-2 text-center">執行・強制機関</td>
+            <td class="border border-gray-300 px-3 py-2">
+                警察や裁判所など（強制力をもつ組織がある）
+            </td>
+            <td class="border border-gray-300 px-3 py-2">
+                存在しない（原則として国家による
+                <button class="tap-word conceal blank-slot" data-word="自力救済">　</button>
+                ）
+            </td>
+        </tr>
+        <tr>
+            <td class="border border-gray-300 bg-gray-50 px-3 py-2 text-center">裁判の管轄権</td>
+            <td class="border border-gray-300 px-3 py-2">
+                義務的（
+                <button class="tap-word conceal blank-slot" data-word="強制管轄権">　</button>
+                がある）
+            </td>
+            <td class="border border-gray-300 px-3 py-2">
+                原則として当事国双方の合意が必要（任意管轄）
+            </td>
+        </tr>
+    </tbody>
+</table>
+         </p></div>
+<table class="w-full border-collapse border border-gray-300 my-4 text-[14px] leading-relaxed table-fixed">
+    <colgroup>
+        <col class="w-[22%]">
+        <col class="w-[39%]">
+        <col class="w-[39%]">
+    </colgroup>
+    <thead>
+        <tr class="bg-gray-100">
+            <th colspan="3" class="border border-gray-300 px-3 py-2 text-left font-bold">
+                ■ 常設国際司法裁判所（PCIJ）と国際司法裁判所（ICJ）の比較
+            </th>
+        </tr>
+        <tr class="bg-gray-50">
+            <th class="border border-gray-300 py-2 text-center">項目</th>
+            <th class="border border-gray-300 py-2 text-center">
+                常設国際司法裁判所（PCIJ）
+            </th>
+            <th class="border border-gray-300 py-2 text-center">
+                国際司法裁判所（ICJ）
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td class="border border-gray-300 bg-gray-50 px-3 py-2 text-center">
+                設立年 / 所属
+            </td>
+            <td class="border border-gray-300 px-3 py-2">
+                1921年 /
+                <button class="tap-word conceal blank-slot" data-word="国際連盟">　</button>
+                の機関
+            </td>
+            <td class="border border-gray-300 px-3 py-2">
+                1945年 /
+                <button class="tap-word conceal blank-slot" data-word="国際連合">　</button>
+                の主要機関
+            </td>
+        </tr>
+        <tr>
+            <td class="border border-gray-300 bg-gray-50 px-3 py-2 text-center">
+                所在地
+            </td>
+            <td class="border border-gray-300 px-3 py-2">
+                ハーグ（オランダ）
+            </td>
+            <td class="border border-gray-300 px-3 py-2">
+                ハーグ（オランダ）
+            </td>
+        </tr>
+        <tr>
+            <td class="border border-gray-300 bg-gray-50 px-3 py-2 text-center">
+                訴訟の当事者
+            </td>
+            <td class="border border-gray-300 px-3 py-2">
+                国家のみ
+            </td>
+            <td class="border border-gray-300 px-3 py-2">
+                国家のみ
+            </td>
+        </tr>
+    </tbody>
+</table>
   </p>
            </div>
 
