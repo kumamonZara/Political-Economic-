@@ -399,11 +399,11 @@ Color: #00F0AA;
 
 <div class="line-item searchable">
            <span class="line-no"></span>
-           <!-- 国際法と国内法の比較テーブル (w-full 且つ aspect-[16/9] で固定) -->
-           <table class="w-full aspect-[16/9] border-collapse border border-gray-300 text-sm my-4 table-fixed">
+           <!-- 国際法と国内法の比較テーブル（無駄なアスペクト比固定を排除し、画面幅一杯に美しく広がる真の横長最適化仕様） -->
+           <table class="w-full border-collapse border border-gray-300 text-sm my-4 table-fixed">
              <thead>
                <tr class="bg-gray-100">
-                 <th class="border border-gray-300 p-2 text-left text-base font-bold" colspan="3">■ 国際法と国内法の比較</th>
+                 <th class="border border-gray-300 p-3 text-left text-base font-bold" colspan="3">■ 国際法と国内法の比較</th>
                </tr>
                <tr class="bg-gray-50 text-center font-bold">
                  <th class="border border-gray-300 p-2 w-1/4">項目</th>
@@ -413,33 +413,33 @@ Color: #00F0AA;
              </thead>
              <tbody>
                <tr>
-                 <td class="border border-gray-300 p-2 font-bold bg-gray-50 text-center">主な主体</td>
-                 <td class="border border-gray-300 p-2">個人や法人（国民など）</td>
-                 <td class="border border-gray-300 p-2">原則として <button class="tap-word conceal blank-slot text-sm" data-word="主権国家" aria-label="用語を表示">　</button></td>
+                 <td class="border border-gray-300 p-3 font-bold bg-gray-50 text-center">主な主体</td>
+                 <td class="border border-gray-300 p-3">個人や法人（国民など）</td>
+                 <td class="border border-gray-300 p-3">原則として <button class="tap-word conceal blank-slot text-sm" data-word="主権国家" aria-label="用語を表示">　</button></td>
                </tr>
                <tr>
-                 <td class="border border-gray-300 p-2 font-bold bg-gray-50 text-center">立法機関</td>
-                 <td class="border border-gray-300 p-2">国会（議会）など（統一的な機関がある）</td>
-                 <td class="border border-gray-300 p-2">存在しない（合意による <button class="tap-word conceal blank-slot text-sm" data-word="条約" aria-label="用語を表示">　</button> や国際慣習法）</td>
+                 <td class="border border-gray-300 p-3 font-bold bg-gray-50 text-center">立法機関</td>
+                 <td class="border border-gray-300 p-3">国会（議会）など（統一的な機関がある）</td>
+                 <td class="border border-gray-300 p-3">存在しない（合意による <button class="tap-word conceal blank-slot text-sm" data-word="条約" aria-label="用語を表示">　</button> や国際慣習法）</td>
                </tr>
                <tr>
-                 <td class="border border-gray-300 p-2 font-bold bg-gray-50 text-center">執行・強制機関</td>
-                 <td class="border border-gray-300 p-2">警察や裁判所など（強制力をもつ組織がある）</td>
-                 <td class="border border-gray-300 p-2">存在しない（原則として国家による <button class="tap-word conceal blank-slot text-sm" data-word="自力救済" aria-label="用語を表示">　</button> ）</td>
+                 <td class="border border-gray-300 p-3 font-bold bg-gray-50 text-center">執行・強制機関</td>
+                 <td class="border border-gray-300 p-3">警察や裁判所など（強制力をもつ組織がある）</td>
+                 <td class="border border-gray-300 p-3">存在しない（原則として国家による <button class="tap-word conceal blank-slot text-sm" data-word="自力救済" aria-label="用語を表示">　</button> ）</td>
                </tr>
                <tr>
-                 <td class="border border-gray-300 p-2 font-bold bg-gray-50 text-center">裁判の管轄権</td>
-                 <td class="border border-gray-300 p-2">義務的（ <button class="tap-word conceal blank-slot text-sm" data-word="強制管轄権" aria-label="用語を表示">　</button> がある）</td>
-                 <td class="border border-gray-300 p-2">原則として当事国双方の合意必要（任意管轄）</td>
+                 <td class="border border-gray-300 p-3 font-bold bg-gray-50 text-center">裁判の管轄権</td>
+                 <td class="border border-gray-300 p-3">義務的（ <button class="tap-word conceal blank-slot text-sm" data-word="強制管轄権" aria-label="用語を表示">　</button> がある）</td>
+                 <td class="border border-gray-300 p-3">原則として当事国双方の合意が必要（任意管轄）</td>
                </tr>
              </tbody>
            </table>
 
-           <!-- 裁判所の比較テーブル (w-full 且つ aspect-[16/9] で固定) -->
-           <table class="w-full aspect-[16/9] border-collapse border border-gray-300 text-sm my-4 table-fixed">
+           <!-- 裁判所の比較テーブル（列幅比率を完全同期させ、横方向の視認性を最大化したデザイン） -->
+           <table class="w-full border-collapse border border-gray-300 text-sm my-4 table-fixed">
              <thead>
                <tr class="bg-gray-100">
-                 <th class="border border-gray-300 p-2 text-left text-base font-bold" colspan="3">■ 常設国際司法裁判所（PCIJ）と国際司法裁判所（ICJ）の比較</th>
+                 <th class="border border-gray-300 p-3 text-left text-base font-bold" colspan="3">■ 常設国際司法裁判所（PCIJ）と国際司法裁判所（ICJ）の比較</th>
                </tr>
                <tr class="bg-gray-50 text-center font-bold">
                  <th class="border border-gray-300 p-2 w-1/4">項目</th>
@@ -449,19 +449,19 @@ Color: #00F0AA;
              </thead>
              <tbody>
                <tr>
-                 <td class="border border-gray-300 p-2 font-bold bg-gray-50 text-center">設立年 / 所属</td>
-                 <td class="border border-gray-300 p-2">1921年 / <button class="tap-word conceal blank-slot text-sm" data-word="国際連盟" aria-label="用語を表示">　</button> の機関</td>
-                 <td class="border border-gray-300 p-2">1945年 / <button class="tap-word conceal blank-slot text-sm" data-word="国際連合" aria-label="用語を表示">　</button> の主要機関</td>
+                 <td class="border border-gray-300 p-3 font-bold bg-gray-50 text-center">設立年 / 所属</td>
+                 <td class="border border-gray-300 p-3">1921年 / <button class="tap-word conceal blank-slot text-sm" data-word="国際連盟" aria-label="用語を表示">　</button> の機関</td>
+                 <td class="border border-gray-300 p-3">1945年 / <button class="tap-word conceal blank-slot text-sm" data-word="国際連合" aria-label="用語を表示">　</button> の主要機関</td>
                </tr>
                <tr>
-                 <td class="border border-gray-300 p-2 font-bold bg-gray-50 text-center">所在地</td>
-                 <td class="border border-gray-300 p-2">ハーグ（オランダ）</td>
-                 <td class="border border-gray-300 p-2">ハーグ（オランダ）</td>
+                 <td class="border border-gray-300 p-3 font-bold bg-gray-50 text-center">所在地</td>
+                 <td class="border border-gray-300 p-3">ハーグ（オランダ）</td>
+                 <td class="border border-gray-300 p-3">ハーグ（オランダ）</td>
                </tr>
                <tr>
-                 <td class="border border-gray-300 p-2 font-bold bg-gray-50 text-center">訴訟の当事者</td>
-                 <td class="border border-gray-300 p-2">国家のみ</td>
-                 <td class="border border-gray-300 p-2">国家のみ</td>
+                 <td class="border border-gray-300 p-3 font-bold bg-gray-50 text-center">訴訟の当事者</td>
+                 <td class="border border-gray-300 p-3">国家のみ</td>
+                 <td class="border border-gray-300 p-3">国家のみ</td>
                </tr>
              </tbody>
            </table>
@@ -479,7 +479,7 @@ Color: #00F0AA;
 <div class="line-item searchable">
            <span class="line-no"></span>
            <p>
-           第一次世界大戦後には、国際社会はより組織化され、特に<button class="tap-word conceal blank-slot text-sm" data-word="国際連盟" aria-label="用語を表示">　</button>の創設を通じて<button class="tap-word conceal blank-slot text-sm" data-word="集団安全保障" aria-label="用語を表示">　</button>が制度化された。これにより、軍世紀的侵略を行う加盟国が現れたとき、他のすべての加盟国は、この侵略を自らに対する脅威と見なし、侵略国に対して共同して制裁を加えることとされた。
+           第一次世界大戦後には、国際社会はより組織化され、特に<button class="tap-word conceal blank-slot text-sm" data-word="国際連盟" aria-label="用語を表示">　</button>の創設を通じて<button class="tap-word conceal blank-slot text-sm" data-word="集団安全保障" aria-label="用語を表示">Target"　</button>が制度化された。これにより、軍世紀的侵略を行う加盟国が現れたとき、他のすべての加盟国は、この侵略を自らに対する脅威と見なし、侵略国に対して共同して制裁を加えることとされた。
            </p>
            </div>
 
@@ -503,7 +503,7 @@ Color: #00F0AA;
            <span class="line-no"></span>
            <p>
            国際連合の主要機関には、<em>①</em> <button class="tap-word conceal blank-slot text-sm" data-word="総会" aria-label="用語を表示">　</button>、<button class="tap-word conceal blank-slot text-sm" data-word="安全保障理事会(安保理)" aria-label="用語を表示">　</button>、<button class="tap-word conceal blank-slot text-sm" data-word="経済社会理事会" aria-label="用語を表示">　</button>、<button class="tap-word conceal blank-slot text-sm" data-word="信託統治理事会" aria-label="用語を表示">　</button>、<button class="tap-word conceal blank-slot text-sm" data-word="国際司法裁判所" aria-label="用語を表示">　</button>および<em>②</em> <button class="tap-word conceal blank-slot text-sm" data-word="事務局" aria-label="用語を表示">　</button>がある。<br>
-           <em>①</em>：総会は全加盟国で構成され、表決は各国1票（<button class="tap-word conceal blank-slot text-sm" data-word="一国一票制" aria-label="用語を表示">　</button>）。安保理の<button class="tap-word conceal blank-slot text-sm" data-word="非常任理事国" aria-label="用語を表示">　</button>10か国は任期2年で、1年ごとに半数が改選。<br>
+           <em>①</em>::総会は全加盟国で構成され、表決は各国1票（<button class="tap-word conceal blank-slot text-sm" data-word="一国一票制" aria-label="用語を表示">　</button>）。安保理の<button class="tap-word conceal blank-slot text-sm" data-word="非常任理事国" aria-label="用語を表示">　</button>10か国は任期2年で、1年ごとに半数が改選。<br>
            <em>②</em>：事務局の長である<button class="tap-word conceal blank-slot text-sm" data-word="国連事務総長" aria-label="用語を表示">　</button>は、安保理の勧告に基づいて総会が任命する（慣行上任期5年）。
            </p>
            </div>
@@ -544,7 +544,7 @@ Color: #00F0AA;
            <span class="line-no"></span>
            <p>
            【国際連合の課題】<br>
-           冷戦終結後、アメリカなどの分担金滞納による<em>財政危機</em>への対応、安全保障理事会の常任理事国の改編（日本やドイツなどへの議席拡大）、PKO活動の再編など、包括的な国連改革が検討された。その結果、<button class="tap-word conceal blank-slot text-sm" data-word="国連平和構築委員会" aria-label="用語を表示">　</button>などが設立されたものの、<strong>2005年</strong>、安全保障理事会の包括的改革は頓立てした。
+           冷戦終結後、アメリカなどの分担金滞納による<em>財政危機</em>への対応、安全保障理事会の常任理事国の改編（日本やドイツなどへの議席拡大）、PKO活動の再編など、包括的な国連改革が検討された。その結果、<button class="tap-word conceal blank-slot text-sm" data-word="国連平和構築委員会" aria-label="用語を表示">　</button>などが設立されたものの、<strong>2005年</strong>、安全保障理事会の包括的改革は頓挫した。
            </p>
            </div>
 
@@ -577,6 +577,7 @@ Color: #00F0AA;
            <strong>2015年</strong>：「持続可能な開発目標」（SDGs）採択
            </p>
            </div>
+
 
 
          
